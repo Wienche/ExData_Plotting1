@@ -1,14 +1,15 @@
-library("tibble")
+# This script reads the data and generates the first plot. 
+
 library("lubridate")
 library("dplyr")
 
-setwd("~/Desktop/R/Course 4/")
 
+setwd("~/Desktop/R/Course 4/Exploratory Data Analysis: Course Project 1"
+      
 #Reads the data from the file
 
 df_HPC <- read.table("household_power_consumption.txt", 
                      header = TRUE, sep = ";", dec = ".", na.strings = "?")
-
 
 # To subset the data for 2007-02-01 and 2007-02-02
 # we first need to specify what are dates. 
@@ -37,4 +38,3 @@ hist(df_HPC$Global_active_power,
      xlab = "Global Active Power (kilowatts)",
      ylab = "Frequency")
 dev.off()
-
