@@ -1,13 +1,11 @@
 # This script reads the data and generates the first plot. 
 
+setwd("~/Desktop/R/Course 4/Exploratory Data Analysis: Course Project 1")
+   
 library("lubridate")
 library("dplyr")
 
-
-setwd("~/Desktop/R/Course 4/Exploratory Data Analysis: Course Project 1"
-      
 #Reads the data from the file
-
 df_HPC <- read.table("household_power_consumption.txt", 
                      header = TRUE, sep = ";", dec = ".", na.strings = "?")
 
@@ -20,15 +18,21 @@ class(df_HPC$Date)
 
 # Change Date Column to Date Type
 df_HPC$Date <- as.Date(df_HPC$Date, "%d/%m/%Y")
-
-# Check if that worked: 
-head(df_HPC)
 class(df_HPC$Date)
 
-#The actual subsetting 
+# Subset the two dates
 df_HPC <- filter(df_HPC, Date >= "2007-02-01" & Date <= "2007-02-02")
 
-# Plotting the graph
+# Combine date plus time
+df_HPC$DateTime <- as.POSIXct(paste(df_HPC$Date, df_HPC$Time), format="%Y-%m-%d %H:%M:%S")
+
+# Check if that worked: 
+class(df_HPC$DateTime)
+
+# Reorder the data in a logical order 
+df_HPC <- df_HPC[, c(1, 2, 10, 3:9)]
+
+# Plot 1 
 png(filename = "plot1.png", 
     width = 480, height = 480, 
     units = "px", bg = "transparent")
